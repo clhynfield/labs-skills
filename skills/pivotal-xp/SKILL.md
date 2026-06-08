@@ -23,7 +23,7 @@ There are five phases. Complete each phase before moving to the next. Always pau
 
 The developer provides an epic as a markdown document in `/docs/epics/`, named with a leading 4-digit number (e.g., `0001-user-authentication.md`). If asked for a new epic, use the template at `templates/epic.md` as the starting structure for new epics.
 
-Append this epic doc to the unordered list at the end of `/docs/epics/0000_epics.md` as a link.
+Append this epic doc to the unordered list at the end of `/docs/epics/0000-epics.md` as a link.
 
 Read the epic carefully, then ask questions to reduce ambiguity. Focus on:
 
@@ -39,9 +39,9 @@ Ask questions in batches. Don't overwhelm with 20 questions at once — group th
 
 Break the epic into small, vertical slices. Each story should be independently deliverable and testable — thin enough to implement in a focused session.
 
-Stories live as markdown documents in `/docs/epics/<epic-name>/`, where `<epic-name>` matches the epic filename with the number prefix (e.g., `/docs/0004.user-authentication/`). Name story files with leading 4-digit numbers: `0010-login-form.md`, `0020-password-validation.md`, etc. Leave gaps in numbering (10, 20, 30...) so stories can be inserted between them later if needed.
+Stories live as markdown documents in `/docs/epics/<epic-name>/`, where `<epic-name>` matches the epic filename minus the `.md` extension (e.g., `/docs/epics/0001-user-authentication/`). Name story files with leading 4-digit numbers: `0010-login-form.md`, `0020-password-validation.md`, etc. Leave gaps in numbering (10, 20, 30...) so stories can be inserted between them later if needed.
 
-Use the template at `templates/story.md` as the starting structure for each story document. This file should be created under `docs/epics/<epic-name>`. And it should be linked from its owning epic doc in an unordered list in the `## Stories` section. 
+Use the template at `templates/story.md` as the starting structure for each story document. The file should be created under `/docs/epics/<epic-name>/` and linked from its owning epic doc in an unordered list in the `## Resulting Stories` section.
 
 Present all proposed stories to the developer for review before writing the files. They may want to reorder, split further, combine, or adjust scope.
 
@@ -93,11 +93,11 @@ For each EARS spec in the plan:
 
 #### Step 1: Write the test
 
-Write a failing test for the spec. Annotate tests with `@spec`:
+Write a failing test for the spec. Annotate the test with `@spec {ID}` in a comment, using whatever comment syntax the language uses:
 
-```
-// @spec AUTH-API-001
-```
+- C-family (JS/TS/Java/Go/etc.): `// @spec AUTH-API-001`
+- Python/Ruby/shell: `# @spec AUTH-API-001`
+- SQL/Lua/Haskell: `-- @spec AUTH-API-001`
 
 Present the test to the developer. Explain what it tests and why. Wait for explicit approval before proceeding.
 
@@ -107,11 +107,7 @@ Only after the developer approves the test, run it. Confirm it fails for the exp
 
 #### Step 3: Write the implementation
 
-Write the simplest code that makes the test pass. Nothing more. Annotate the implementation with `@spec`:
-
-```
-// @spec AUTH-API-001
-```
+Write the simplest code that makes the test pass. Nothing more. Annotate the implementation with the same `@spec {ID}` comment used in Step 1.
 
 Present the implementation to the developer. Explain your approach. Wait for explicit approval before proceeding.
 
