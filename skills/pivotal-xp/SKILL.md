@@ -1,6 +1,6 @@
 ---
 name: pivotal-xp
-description: Extreme Programming workflow inspired by Pivotal Labs. Guides the full lifecycle from epic refinement through story slicing, EARS specifications, and strict test-driven development. Use this skill whenever the user wants to work on an epic, break down work into stories, plan implementation with EARS specs, or TDD a feature using the XP pairing discipline. Also use when the user mentions epics, story slicing, Gherkin acceptance criteria, or wants a structured XP workflow for building features.
+description: Use when the user wants a Pivotal-Labs-style XP pairing workflow — refining an epic, slicing it into stories, writing EARS specifications from Gherkin acceptance criteria, or doing strict per-spec TDD with developer approval at every gate. Also use when the user mentions epics, story slicing, EARS, or "pair with me on this."
 ---
 
 # Pivotal XP
@@ -18,6 +18,19 @@ A disciplined Extreme Programming workflow inspired by Pivotal Labs, covering th
 ## The Workflow
 
 There are five phases. Complete each phase before moving to the next. Always pause for developer approval at phase boundaries.
+
+### What counts as approval
+
+"Explicit approval" means the developer affirmatively says yes — e.g., "approved", "lgtm", "go", "ship it", "👍". The following are **not** approval:
+
+- Silence
+- "Looks fine" with unresolved questions in the same message
+- A previous blanket "do the whole story" — translate that to per-step approvals anyway
+- Your own confidence that they would approve
+
+When unsure, ask. The cost of asking is one message; the cost of acting without approval is breaking the pair.
+
+**Violating the letter of these gates is violating the spirit of pairing.**
 
 ### Phase 1: Epic Refinement
 
@@ -144,6 +157,28 @@ When all EARS specs in a story are checked off:
 2. Review the story document — all checkboxes should be checked
 3. Ask the developer if the story meets their expectations
 4. Move to the next story
+
+## Common Rationalizations
+
+| Excuse | Reality |
+|---|---|
+| "These tests are trivial, I can skip the approval step" | Approval is what makes you a pair, not a contractor. Ask. |
+| "Dev said 'go ahead with the whole story'" | Translate to per-spec gates: "Approving the test for AUTH-API-001 now, then I'll show you the impl. OK?" |
+| "I'll batch the refactor at the end of the story" | Refactor with the context fresh, after each green. Batching loses the why. |
+| "I can draft the impl while the test is being reviewed" | No. Approval, then action. Drafting ahead anchors you to one solution. |
+| "Refactor isn't needed here" | Say so explicitly to your pair. Don't silently skip Step 5. |
+| "Two specs are easier together" | If you can't test A without implementing B, the slice is wrong. Stop and re-slice. |
+| "Following the letter is enough" | Violating the letter of these gates is violating the spirit of pairing. |
+
+## Red Flags — STOP
+
+- You're about to run a test without an approval message.
+- You're writing implementation before the test was approved.
+- You're touching code for more than one EARS spec at a time.
+- The developer hasn't replied — and you're moving anyway.
+- You're skipping Step 5 (refactor) without saying so out loud.
+
+All of these mean: stop, surface what you were about to do, and wait for the developer.
 
 ## Being a Good Pair
 
