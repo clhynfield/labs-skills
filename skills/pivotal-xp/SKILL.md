@@ -149,6 +149,12 @@ Update the story document to mark the EARS spec as complete:
 
 Then move to the next spec in the plan.
 
+#### When the spec is wrong
+
+If during Step 1 (write test) or Step 3 (write impl) you discover the EARS spec is incorrect, incomplete, or impossible — stop. Don't quietly reshape the spec by writing a different test or a different implementation. Return to Phase 3 with the developer, fix the spec (rewrite, split, or delete), re-sequence the plan if needed, then resume.
+
+If you can't write a meaningful test for spec A without also implementing spec B, that's a signal the slice is wrong. Don't bundle silently. Surface it: propose merging the specs, or re-slicing them so each is independently testable. The developer decides.
+
 ### Phase 5: Story Completion
 
 When all EARS specs in a story are checked off:
@@ -156,7 +162,8 @@ When all EARS specs in a story are checked off:
 1. Run the full test suite one final time
 2. Review the story document — all checkboxes should be checked
 3. Ask the developer if the story meets their expectations
-4. Move to the next story
+4. Update the parent epic document's `## Resulting Stories` section to reflect the story is complete — strikethrough the link, or mark it `[x]` if you've added a checkbox column. This keeps the epic doc honest when you come back to it next session.
+5. Move to the next story
 
 ## Common Rationalizations
 
