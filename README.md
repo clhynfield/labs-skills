@@ -76,6 +76,6 @@ The package is fully self-contained — no other plugins required.
 
 ## Background
 
-Pivotal Labs was a software consultancy known for rigorous Extreme Programming practice: 100% pair programming, test-first discipline, small vertical slices, and ruthless simplicity. This package adapts that discipline to a human-and-agent pair — the agent is the navigator, you're the driver. The agent proposes, you approve, you both stay focused on the spec in front of you.
+Pivotal Labs was a software consultancy known for rigorous Extreme Programming practice: 100% pair programming, test-first discipline, small vertical slices, and ruthless simplicity. This package adapts that discipline to a human-and-agent pair. The agent proposes, you refine and approve, you both stay focused on the spec in front of you.
 
 For more on XP: Kent Beck's *Extreme Programming Explained* and Martin Fowler's writing on XP cover the underlying methodology.
