@@ -15,6 +15,15 @@ A disciplined Extreme Programming workflow inspired by Pivotal Labs, covering th
 - **The developer drives.** You propose, they approve. Never run tests or move forward without explicit approval.
 - **Language and stack agnostic.** Read the project to understand what technologies are in use. Don't assume a framework or language.
 
+### Model recommendations
+
+Different phases reward different models. A running agent can't switch its own model — these are guidance for the developer:
+
+- **Phases 1–3 (epic refinement, story slicing, EARS): Opus.** High-judgment work that benefits from deeper reasoning.
+- **Phase 4 (TDD execution): Sonnet or Opus.** Mechanical RED-GREEN-REFACTOR is fast on Sonnet; Opus is fine if continuity is more valuable to you than speed/cost.
+
+Switch with `/model` between phases if you want the split.
+
 ## The Workflow
 
 There are five phases. Complete each phase before moving to the next. Always pause for developer approval at phase boundaries.
@@ -62,24 +71,9 @@ Present all proposed stories to the developer for review before writing the file
 
 For each story, derive EARS specs from the Gherkin acceptance criteria. One Gherkin scenario often yields multiple EARS specs — each spec should be small enough for a single red-green-refactor cycle.
 
-#### EARS Patterns
+#### EARS Specifications
 
-Use the five EARS requirement patterns:
-
-1. **Ubiquitous** (always true): "The system shall [behavior]."
-2. **Event-driven** (triggered by action): "When [trigger], the system shall [response]."
-3. **State-driven** (while condition holds): "While [state], the system shall [behavior]."
-4. **Optional** (feature-dependent): "Where [feature is enabled], the system shall [behavior]."
-5. **Unwanted** (error handling): "If [unwanted condition], then the system shall [response]."
-
-#### Semantic IDs
-
-Use the format `{FEATURE}-{TYPE}-{NNN}`:
-- **FEATURE**: 2-4 letter prefix derived from the epic (e.g., `AUTH`, `CART`, `DASH`)
-- **TYPE**: Component type — `UI`, `API`, `DATA`, `NAV`, `BE`, `PROC`
-- **NNN**: Sequential number, zero-padded (001, 002, ...)
-
-Keep IDs stable. Don't renumber when inserting — use gaps or sub-numbers.
+**REQUIRED SUB-SKILL:** Use the `ears-specifications` skill (shipped with this package at `skills/ears-specifications/`) for the five patterns, the semantic-ID format, and the Gherkin-to-EARS decomposition technique.
 
 #### TDD Plan
 
@@ -102,42 +96,24 @@ Review the plan with the developer before starting the plan.
 
 Work through the implementation plan one EARS spec at a time. This is the heart of the pairing discipline. Never batch. Never skip ahead. Break each red/green/refactor step into small pieces of functionality. Favor writing tests for one method over a whole class.
 
-For each EARS spec in the plan:
+**REQUIRED SUB-SKILL:** Use a `test-driven-development` skill for the RED-GREEN-REFACTOR mechanics. Check in this order:
 
-#### Step 1: Write the test
+1. `superpowers-ruby:test-driven-development` — Superpowers-Ruby plugin
+2. `superpowers:test-driven-development` — Superpowers plugin
+3. `test-driven-development` — shipped with this package at `skills/test-driven-development/` (fallback for installs without any superpowers plugin)
 
-Write a failing test for the spec. Annotate the test with `@spec {ID}` in a comment, using whatever comment syntax the language uses:
+If none are available, the cycle is: write one failing test → confirm it fails for the expected reason → write the minimal code to make it pass → confirm it passes (and re-run the full suite) → refactor with the context fresh.
 
-- C-family (JS/TS/Java/Go/etc.): `// @spec AUTH-API-001`
-- Python/Ruby/shell: `# @spec AUTH-API-001`
-- SQL/Lua/Haskell: `-- @spec AUTH-API-001`
+#### Pivotal-XP additions to the cycle
 
-Present the test to the developer. Explain what it tests and why. Wait for explicit approval before proceeding.
+For each EARS spec:
 
-#### Step 2: Confirm red
-
-Only after the developer approves the test, run it. Confirm it fails for the expected reason. If it fails for an unexpected reason, diagnose and fix with the developer. If it passes (meaning the behavior already exists), discuss with the developer — the spec may need adjustment or can be checked off.
-
-#### Step 3: Write the implementation
-
-Write the simplest code that makes the test pass. Nothing more. Annotate the implementation with the same `@spec {ID}` comment used in Step 1.
-
-Present the implementation to the developer. Explain your approach. Wait for explicit approval before proceeding.
-
-#### Step 4: Confirm green
-
-Only after the developer approves the implementation, run the test. Confirm it passes. Also run the full test suite to check for regressions.
-
-#### Step 5: Refactor
-
-Look at the code you just wrote and the code around it. Consider:
-
-- Is there duplication that should be extracted?
-- Are names clear and intention-revealing?
-- Is the code as simple as it can be while remaining clear?
-- Are there any code smells?
-
-If you see an improvement, propose it to the developer with your reasoning. If they approve, make the change and rerun tests to confirm green. If nothing needs refactoring, say so and move on.
+- **Annotate** the test and the implementation with `@spec {ID}` in a comment, using whatever syntax the language uses:
+  - C-family (JS/TS/Java/Go/etc.): `// @spec AUTH-API-001`
+  - Python/Ruby/shell: `# @spec AUTH-API-001`
+  - SQL/Lua/Haskell: `-- @spec AUTH-API-001`
+- **Approval gates at every transition.** Wait for explicit developer approval before running the test, before writing the implementation, before running it again, and before refactoring. See "What counts as approval" above.
+- **One spec at a time.** Never batch.
 
 #### Step 6: Check off the spec
 
@@ -175,6 +151,7 @@ When all EARS specs in a story are checked off:
 | "I can draft the impl while the test is being reviewed" | No. Approval, then action. Drafting ahead anchors you to one solution. |
 | "Refactor isn't needed here" | Say so explicitly to your pair. Don't silently skip Step 5. |
 | "Two specs are easier together" | If you can't test A without implementing B, the slice is wrong. Stop and re-slice. |
+| "I'll combine the test and impl approval into one gate to save time" | The gates exist to surface what each step reveals. Approving an impl before seeing the test fail forfeits the design feedback the red step provides. Keep each gate separate. |
 | "Following the letter is enough" | Violating the letter of these gates is violating the spirit of pairing. |
 
 ## Red Flags — STOP
@@ -184,6 +161,7 @@ When all EARS specs in a story are checked off:
 - You're touching code for more than one EARS spec at a time.
 - The developer hasn't replied — and you're moving anyway.
 - You're skipping Step 5 (refactor) without saying so out loud.
+- You're asking for approval on more than one step at once ("approve the test + impl together").
 
 All of these mean: stop, surface what you were about to do, and wait for the developer.
 
