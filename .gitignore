@@ -1,5 +1,7 @@
 .DS_Store
 /.idea/
+.envrc
+.zsh_history
 
 # Default ignored files
 /shelf/
