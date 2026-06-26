@@ -18,16 +18,16 @@ This is a bare skills directory — no plugin manifest. Two ways to use it:
 **Per-project** — clone into a project and Claude Code picks up the `skills/` directory automatically when you work in that repo:
 
 ```bash
-git clone git@github.com:infews/pxp_skill.git
+git clone git@github.com:clhynfield/labs-skills.git
 ```
 
 **Globally** — symlink the individual skills into your user skills directory so they're available across all your projects:
 
 ```bash
-ln -s "$(pwd)/skills/pivotal-xp"             ~/.claude/skills/pivotal-xp
+ln -s "$(pwd)/skills/pivotal-xp"              ~/.claude/skills/pivotal-xp
 ln -s "$(pwd)/skills/test-driven-development" ~/.claude/skills/test-driven-development
 ln -s "$(pwd)/skills/ears-specifications"     ~/.claude/skills/ears-specifications
-ln -s "$(pwd)/skills/architecture-as-code" ~/.claude/skills/architecture-as-code
+ln -s "$(pwd)/skills/architecture-as-code"    ~/.claude/skills/architecture-as-code
 ```
 
 ## First session
