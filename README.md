@@ -7,7 +7,7 @@ A Claude Code skills package for running solo or small-team coding sessions with
 Four skills, designed to ship together but usable independently:
 
 - **`pivotal-xp`** — the workflow. Five phases from epic refinement to story completion, with developer-approval gates at every TDD transition.
-- **`test-driven-development`** — a standalone RED-GREEN-REFACTOR discipline skill. Used as a fallback by `pivotal-xp` when no richer TDD skill is installed.
+- **`test-driven-development`** — a standalone RED-GREEN-REFACTOR discipline skill.
 - **`ears-specifications`** — a reusable reference for EARS (Easy Approach to Requirements Syntax) patterns and the semantic-ID convention. Useful outside Pivotal-XP for any Spec-Driven-Development flow.
 - **`architecture-as-code`** — bootstraps a project's architecture-docs and ADR practice, keeps a living architecture overview (with Mermaid diagrams) in sync with decisions, and guides authoring lightweight, numbered records for architecturally significant decisions before the implementing code is written.
 
