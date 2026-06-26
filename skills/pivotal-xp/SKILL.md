@@ -79,18 +79,39 @@ For each story, derive EARS specs from the Gherkin acceptance criteria. One Gher
 
 Sequence the EARS specs by dependency into an implementation plan. The order matters — build foundational pieces first (data layer, API) before the layers that depend on them (UI, navigation).
 
-Add the sequenced plan to the story document's "Implementation Plan" section, with checkboxes for each spec:
+**REQUIRED SUB-SKILL:** As you build the plan, assess whether implementing the story involves any potentially architecturally significant changes. If so, use the `architecture-as-code` skill (shipped with this package at `skills/architecture-as-code/`) to draft the necessary ADR(s) and the proposed architecture-doc updates *as part of the same proposal as the implementation plan*. Treat a change as architecturally significant — and worth the skill — if it affects any of:
+
+- System structure or module boundaries (packages, layers, entry points)
+- Addition or removal of an external dependency or service integration
+- Transport layer, protocol, or external API contract
+- The shape of a public interface
+- Authentication or authorisation model
+- Data formats exchanged across system boundaries
+- A non-functional characteristic (security, performance, deployability, observability)
+- A new convention all contributors must follow
+- Agent autonomy or AI-integration patterns
+- Any decision that would be costly or disruptive to reverse
+
+If you are unsure, treat it as significant and consult the skill — a false-positive ADR costs one short review cycle; a missed architectural decision can cost a rewrite. Trivial, easily-reversible changes need no ADR.
+
+Add the sequenced plan to the story document's "Implementation Plan" section, with checkboxes for each spec. Where a spec depends on an architecturally significant decision, link the applicable Draft ADR inline so the developer can review the plan and the decision together. The links below are relative from a story at `docs/epics/<epic-name>/<story>.md` to ADRs at `docs/architecture/decisions/` — that's two levels up (`../../`); adjust the prefix if your docs live elsewhere:
 
 ```markdown
 ## Implementation Plan
 
-- [ ] `AUTH-API-001` — Validate JWT on authenticated requests
+Architecturally significant decisions (must be Accepted before the dependent specs begin):
+
+- [`ADR 0007 — JWT session transport`](../../architecture/decisions/0007-jwt-session-transport.md) (Draft)
+
+Specs:
+
+- [ ] `AUTH-API-001` — Validate JWT on authenticated requests — needs [ADR 0007](../../architecture/decisions/0007-jwt-session-transport.md)
 - [ ]  `AUTH-DATA-001` — Store session in secure storage
 - [ ]  `AUTH-UI-001` — Render login button on home screen
 - [ ]  `AUTH-UI-002` — Navigate to auth flow on tap
 ```
 
-Review the plan with the developer before starting the plan.
+**Single approval gate.** Present the implementation plan together with any Draft ADRs and their proposed architecture-doc updates, and wait for one explicit developer approval covering both the plan *and* the architectural decisions. Per the `architecture-as-code` skill, an architecturally significant change waits for human Acceptance before any implementation begins — so do not start Phase 4 (or promote any ADR past Draft yourself) until the developer approves. Approval of the plan is approval to mark the linked ADRs Accepted and begin TDD.
 
 ### Phase 4: Test-Driven Development
 
