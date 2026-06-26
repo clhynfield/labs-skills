@@ -96,13 +96,11 @@ Review the plan with the developer before starting the plan.
 
 Work through the implementation plan one EARS spec at a time. This is the heart of the pairing discipline. Never batch. Never skip ahead. Break each red/green/refactor step into small pieces of functionality. Favor writing tests for one method over a whole class.
 
-**REQUIRED SUB-SKILL:** Use a `test-driven-development` skill for the RED-GREEN-REFACTOR mechanics. Check in this order:
+**REQUIRED SUB-SKILL:** Use the `test-driven-development` skill shipped with this package at `skills/test-driven-development/` for the RED-GREEN-REFACTOR mechanics.
 
-1. `superpowers-ruby:test-driven-development` — Superpowers-Ruby plugin
-2. `superpowers:test-driven-development` — Superpowers plugin
-3. `test-driven-development` — shipped with this package at `skills/test-driven-development/` (fallback for installs without any superpowers plugin)
+If it isn't available, the cycle is: write one failing test → confirm it fails for the expected reason → write the minimal code to make it pass → confirm it passes (and re-run the full suite) → refactor with the context fresh.
 
-If none are available, the cycle is: write one failing test → confirm it fails for the expected reason → write the minimal code to make it pass → confirm it passes (and re-run the full suite) → refactor with the context fresh.
+The shipped `test-driven-development` skill also describes an optional way to split RED, GREEN, and REFACTOR across separate subagent turns. You may use it here, but the pairing discipline takes precedence over its autonomous hand-offs: the developer's approval gates below still apply at every phase boundary. The orchestrator must pause for explicit approval between Red, Green, and Refactor rather than running the turns straight through. If that pausing would get in the way, stay with the single-agent loop.
 
 #### Pivotal-XP additions to the cycle
 

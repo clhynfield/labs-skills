@@ -59,13 +59,7 @@ All artifacts live in `/docs/epics/` alongside your code — no Jira, no Linear,
 
 ## Works with
 
-`pivotal-xp` Phase 4 prefers external TDD skills if available, falling back to the bundled one:
-
-| TDD skill installed | What pivotal-xp uses |
-|---|---|
-| `superpowers-ruby:test-driven-development` | superpowers-ruby version (first choice) |
-| `superpowers:test-driven-development` | superpowers version (second choice) |
-| Neither | The bundled `test-driven-development` skill in this package |
+`pivotal-xp` Phase 4 uses the bundled `test-driven-development` skill for its RED-GREEN-REFACTOR mechanics.
 
 The package is fully self-contained — no other plugins required.
 
